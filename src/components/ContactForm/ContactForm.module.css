@@ -10,10 +10,11 @@
 }
 .fieldBox {
   margin-bottom: 8px;
+  max-width: 295px;
+  width: 100%;
 }
 .input {
-  /* width: 100%; */
-  width: 315px;
+  width: 100%;
 }
 .button {
   width: fit-content;

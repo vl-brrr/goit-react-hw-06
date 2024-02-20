@@ -2,6 +2,8 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 import css from './ContactForm.module.css';
 
 const contactSchema = Yup.object().shape({
@@ -11,14 +13,16 @@ const contactSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('This field is required.'),
 });
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const nameFieldId = useId();
   const numberFieldId = useId();
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       onSubmit={(values, actions) => {
-        onSubmit({ id: nanoid(), ...values });
+        dispatch(addContact({ id: nanoid(), ...values }));
         actions.resetForm();
       }}
       validationSchema={contactSchema}
